@@ -1,27 +1,68 @@
 const a = e('#id-audio-player')
 
+//给菜单栏添加事件
+const bindEventMenus = function() {
+    var menu = e('#id-ul-menu')
+    bindEvent(menu, 'click', function(event) {
+        var target = event.target
+        if(target.classList.contains('menuButtons')) {
+            //根据点击的按钮获取page
+            var page = target.dataset.page
+            log('pageName', page)
+            //拼接生成对应的div
+            var divSelector = '#id-'+ page
+            log('divName',divSelector)
+            //清除所有div的显示class：'containerActive'
+            clearAll('.divContainer', 'containerActive')
+            //显示对应的div
+            e(divSelector).classList.add('containerActive')
+            //清除menu按钮上的样式class
+            clearAll('.menuButtons', 'active')
+            //生成点击menu按钮的id
+            var idOfLi = '#id-'+ page.split('-')[0]
+            //给点击的menu加上class
+            e(idOfLi).classList.add('active')
+        }
+        //点击favorite时添加歌曲列表
+        if (target.id == 'id-favorite') {
+            var songList = es('.song')
+            for(var i = 0; i < songList.length; i++) {
+                songList[i].remove()
+            }
+            insertSongList(songs)
+            //点击歌曲列表切换歌曲
+            bindSongChange()
+        }
+    })
+}
+//切换上一首/下一首歌曲事件
 const bindEventPreviousNext = function() {
     bindEvent(e('.playButtonsContainer'), 'click', function(event) {
         var target = event.target
-        var array = songList()
+        var array = songList(songs)
+        //获取当前歌曲在歌曲列表中的下标
         var index = indexOfSong(array)
+        //根据点击的按钮是上一首/下一首来求出接下来播放的歌曲的下标
+        //将播放器src替换为新的下标对应曲名
+        //点击上一首/下一首都会触发播放按钮
         if(target.id == "id-previousButton") {
             var nextIndex = (index - 1 + array.length) % array.length
-            a.src = `music player/music/${array[nextIndex]}`
+            a.src = `music/${array[nextIndex]}`
             clearAll('.playOrPause', 'hide')
             e('#id-audio-play').classList.add('hide')
         }
         if(target.id == "id-nextButton") {
             var nextIndex = (index + 1) % array.length
-            a.src = `music player/music/${array[nextIndex]}`
+            a.src = `music/${array[nextIndex]}`
             clearAll('.playOrPause', 'hide')
             e('#id-audio-play').classList.add('hide')
         }
         bindEventCanplay()
-
+        showSongInfo()
+        
     })
 }
-
+//播放暂停按钮事件
 const bindEventPlayOrPause = function() {
     bindEvent(e('.playButtonsContainer'), 'click', function(event){
         var target = event.target
@@ -39,7 +80,7 @@ const bindEventPlayOrPause = function() {
         }
     })
 }
-
+//时间显示
 const bindTimeDisplay = function() {
     a.addEventListener('canplaythrough', function(){
         let total = `${Math.floor(a.duration / 60)}:${Math.floor(a.duration % 60)}`
@@ -48,16 +89,19 @@ const bindTimeDisplay = function() {
         updateCurrentTime()
     })   
 } 
-
+//点击歌名列表切换歌曲
 const bindSongChange = function() {
     bindAll('.song', 'click', function(event) {
         let target = event.target
-        let newSrc = `music player/music/${target.dataset.path}`
+        log('songName', target)
+        let newSrc = `music/${target.dataset.path}`
+        log(target, newSrc)
         a.src = newSrc
         let playButton = e('#id-audio-play')
         clearAll('.playOrPause', 'hide')
         playButton.classList.add('hide')
         bindEventCanplay()
+        showSongInfo()
     })
 }
 
@@ -66,59 +110,61 @@ const bindEventCanplay = function() {
         a.play()
     })
 }
-
+//单曲循环播放
 const bindEventCycle = function() {
     bindEvent(a, 'ended', function(){
         a.currentTime = 0
         a.play()
     })
 }
-
+//列表循环播放
 const bindEventNext = function() {
     bindEvent(a, 'ended', function() {
         let array = songList()
         let index = indexOfSong(array)
         let nextIndex = (index + 1) % array.length
         log(nextIndex)
-        a.src = `music player/music/${array[nextIndex]}`
+        a.src = `music/${array[nextIndex]}`
         bindEventCanplay()
+        showSongInfo()
     })
 }
-
+//随机播放
 const bindEventRandom = function() {
     bindEvent(a, 'ended', function(){
-        a.src = `music player/music/${choice(songList())}`
+        a.src = `music/${choice(songList())}`
         bindEventCanplay()
+        showSongInfo()
     })
 }
-
+//获取当前播放进度
 const updateCurrentTime = function() {
     let currentTime = `${Math.floor(a.currentTime / 60)}:${Math.floor(a.currentTime % 60)}`
     let audioCurrentTime = e('#id-audio-currentTime')
     audioCurrentTime.innerHTML = currentTime
 }
-
+//刷新播放时间
 const showAudioTime = function() {
     setInterval(updateCurrentTime, 1000);
 }
-
+//获取歌曲列表
 const songList = function() {
     var array = []
-    let songs = es('.song')
     for(let i = 0; i < songs.length; i++) {
-        let s = songs[i]
-        let p = s.dataset.path
-        array.push(p)
+        let s = songs[i].path
+        array.push(s)
     }
+    log(array)
     return array
 }
-
+//获取当前歌曲对应下标
 const indexOfSong = function(array) {
-    let element = a.getAttribute('src')
+    let element = a.getAttribute('src').split('/')[1]
     let index = indexOfElement(element, array)
+    log('element',element, 'index', index)
     return index
 }
-
+//获取随机选择的歌曲
 const choice = function(songList) {
     const length = songList.length
     // 1. 得到  0 - 1 之间的小数 a
@@ -128,15 +174,73 @@ const choice = function(songList) {
     // 4. 得到 array 中的随机元素
     return songList[index]
 }
+//显示当前播放歌曲的信息
+//1.用一个数组保存当前歌曲的信息
+const songs = [
+    {
+    songName: '夏花',
+    singer: "juju",
+    path: '01.mp3'
+    },
+    {
+    songName: 'Destiny',
+    singer: "岛谷瞳",
+    path: '02.mp3'
+    },
+    {
+    songName: 'Love Song',
+    singer: "西野加奈",
+    path: '03.mp3'
+    },
+    {
+    songName: 'Unknown',
+    singer: "佚名",
+    path: '04.mp3'
+    }
+]
+//2.把歌曲列表插入到页面中
+const insertSongList = function(dataList) {
+    var songList = e('#id-songList')
+    for(var i = 0; i < dataList.length; i++) {
+        var t = songListTemplate(dataList[i])
+        appendHtml(songList, t)
+    }
+    return
+}
+const songListTemplate = function(data) {
+    var t = `
+    <li class="song" data-path=${data.path} data-singer=${data.singer}>${data.songName}</li>
+    `
+    return t
+}
+//3.获取当前歌曲的信息显示到页面中
+const showSongInfo = function() {
+    //获取当前播放歌曲的src
+    let currentSong = a.getAttribute('src').split('/')[1]
+    let name = e('.songName')
+    let singerName = e('.singer')
+    //遍历歌曲列表，找到当前歌曲对应的数组项
+    for(let i = 0; i < songs.length; i++) {
+        let s = songs[i]
+        let p = s.path
+        if(currentSong == p) {
+            //替换显示的歌曲信息
+            name.innerHTML = s.songName
+            singerName.innerHTML = s.singer
+        }
+    }
+    //let songName = songs[index].songName
+    //let singer = songs[index].singer
+    //log('songName', songName, 'singer', singer)
+}
 
 const _main = function() {
-    bindSongChange()
     bindTimeDisplay()
     showAudioTime()
     bindEventNext()
     bindEventPreviousNext()
     bindEventPlayOrPause ()
-    
+    bindEventMenus()
 }
 
 _main()
