@@ -11,13 +11,13 @@
 <body>
     <div class="container">
         <ul id="id-ul-menu">
-            <li class="active">Home</li>
-            <li>Search</li>
-            <li>Favorite</li>
-            <li>Playlists</li>
-            <li>Charts</li>
+            <li id="id-home" class="menuButtons active" data-page="home-container">Home</li>
+            <li id="id-search" class="menuButtons" data-page="search-container">Search</li>
+            <li id="id-favorite" class="menuButtons" data-page="favorite-container">Favorite</li>
+            <li id="id-playlists" class="menuButtons" data-page="playlists-container">Playlists</li>
+            <li id="id-charts" class="menuButtons" data-page="charts-container">Charts</li>
         </ul>
-        <div id="id-audio-container">
+        <div id="id-home-container" class='divContainer containerActive'>
             <!--显示专辑图片-->
             <img id="id-img-cover" src="album/夏花.jpg" alt="cover">
             <!--显示歌曲信息-->
@@ -26,6 +26,9 @@
                 <span class="singer">juju</span>
             </div>
             <!--播放器组件-->
+            
+        </div>
+        <div id="id-audio-container">
             <audio id=id-audio-player src="music/01.mp3"></audio>
             <!--播放器按钮-->
             <div class="playButtonsContainer">
@@ -41,19 +44,17 @@
             <span id="id-audio-duration"></span>
             <span id="id-audio-progressBar"></span>
         </div>
-        <!--TODO 添加歌曲列表
-        <div id="id-div-songList">
+        <!--TODO 添加歌曲列表-->
+        <div id="id-favorite-container" class='divContainer'>
             <div id="myFavorites">
-                <p>My Favorites</p>
-                <ol>
-                    <li class="song" data-path="01.mp3">夏花</li>
-                    <li class="song" data-path="02.mp3">Destiny</li>
-                    <li class="song" data-path="03.mp3">Love Song</li>
-                    <li class="song" data-path="04.mp3">未知</li>
+                <ol id="id-songList">
+                    <!--<li class="song" data-path=${data.path} data-singer=${data.singer}>${data.songName}</li>-->
                 </ol>
             </div>
         </div>
-    -->
+        <div id="id-search-container" class='divContainer'></div>
+        <div id="id-playlists-container" class='divContainer'></div>
+        <div id="id-charts-container" class='divContainer'></div>
         <script src="hu.js"></script>
         <script src="music player.js"></script>
         

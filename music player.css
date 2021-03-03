@@ -1,6 +1,7 @@
 body {
     background-color:#dbf5fd;
     color:#2c2c2c;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .container {
     width: 900px;
@@ -17,7 +18,6 @@ body {
     font-size: larger;
     position: relative;
     list-style:none;
-    font-family: Arial, Helvetica, sans-serif;
 }
 #id-ul-menu li{
     display: inline;
@@ -27,19 +27,34 @@ body {
     opacity: 60%;
     cursor: pointer;
 }
+#id-ul-menu li:hover{
+    border: 1px solid #dbf5fd;
+    background-color: #dbf5fd;
+    border-radius: 30px;
+}    
 #id-ul-menu li.active{
     opacity: 100%;
 
 }
-#id-audio-container {
+.divContainer {
     padding-top: 20px;
     position: absolute;
     margin: 110px 20px 20px 20px;
     width: 856px;
     height: 120px;
+    display: none;
+}
+.containerActive {
+    display: block;
+}
+#id-audio-container, #id-home-container {
     text-align: center;
 }
-#id-audio-container audio, button, span {
+#id-audio-container {
+    margin-top: 47%;
+}
+
+.divContainer audio, button, span {
     padding: 5px;
     display: inline-block;
 }
@@ -61,24 +76,40 @@ body {
     height: 200px;
     border-radius: 13px;
 }
-.songName, .singer {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
 .singer {
     font-size: 15px;
 }
 #id-audio-currentTime {
     float: left;
+    margin-left: 25px;
 }
 #id-audio-duration {
     float: right;
+    margin-right: 25px;
 }
 span#id-audio-progressBar {
     display: inline-block;
     padding: 0px;
-    width: 96%;
+    width: 94%;
     height: 2px;
     background-color: #2c2c2c;
-    margin-left: 10px;
-    margin-top: 16px;
+    margin: 16px 2% auto 2%;
+}
+#id-favorite-container {
+    position: absolute;
+    top: 0;
+    border: 1px solid #dbf5fd;
+    height: 50%;
+    margin-left: 4%;
+    margin-top: 10%;
+    padding: 10px 0px 0px 10px;
+    background-color: skyblue;
+    border-radius: 45px 0px 0px 45px;
+}
+.song {
+    padding: 5px;
+    cursor: pointer;
+}
+.song:hover {
+    color: white;
 }
