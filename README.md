@@ -1,5 +1,5 @@
 # MusicPlayer
- 
+ 原生JavaScript音乐播放器
 <h2>实现功能</h2>
 <ul>
  <li>播放/暂停</li>
@@ -18,6 +18,6 @@
  <li>其他页面</li>
 </ul>
 <p>-效果图-</p>
-![img](https://img2.doubanio.com/view/photo/l/public/p2634406293.webp)
-![img](https://img9.doubanio.com/view/photo/l/public/p2634406294.webp)
+![demo picture](https://img2.doubanio.com/view/photo/l/public/p2634406293.webp)
+![demo picture](https://img9.doubanio.com/view/photo/l/public/p2634406294.webp)
 
