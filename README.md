@@ -22,5 +22,5 @@
 #### -效果图-
 
 
-![demo picture](https://github.com/sophiehu36/MusicPlayer/blob/main/images/display1.JPG)
-![demo picture](https://github.com/sophiehu36/MusicPlayer/blob/main/images/display2.JPG)
+![demo picture](https://img2.doubanio.com/view/photo/l/public/p2634406293.webp)
+![demo picture](https://img9.doubanio.com/view/photo/l/public/p2634406294.webp)
