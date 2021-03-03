@@ -18,6 +18,5 @@
  <li>其他页面</li>
 </ul>
 <p>-效果图-</p>
-![demo picture](https://img2.doubanio.com/view/photo/l/public/p2634406293.jpg)
-![demo picture](https://img9.doubanio.com/view/photo/l/public/p2634406294.jpg)
+![demo display](images/display.JPG)
 
