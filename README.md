@@ -18,7 +18,7 @@
  <li>其他页面</li>
 </ul>
 <p>-效果图1-</p>
-![demo display](https://github.com/sophiehu36/MusicPlayer/blob/649994befc3ecd1629f94c1938816125c7a6237c/images/display1.JPG)
+![](images/display1.JPG)
 <p>-效果图2-</p>
-![demo display](images/display2.JPG)
+![](images/display2.JPG)
 
