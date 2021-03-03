@@ -17,8 +17,9 @@
  <li>音量调节</li>
  <li>其他页面</li>
 </ul>
+
+
 #### -效果图-
-<br>
 
 
 ![demo picture](https://github.com/sophiehu36/MusicPlayer/blob/main/images/display1.JPG)
