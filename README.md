@@ -6,4 +6,4 @@
  <li>显示专辑、歌名、歌手等歌曲信息</li>
  <li>显示歌曲时长</li>
 </ul>
-![]https://github.com/sophiehu36/MusicPlayer/blob/main/images/display.JPG
+![](https://github.com/sophiehu36/MusicPlayer/blob/main/images/display.JPG)
