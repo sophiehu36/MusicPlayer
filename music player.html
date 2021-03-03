@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>music player</title>
+    <link rel="stylesheet" href="music player.css">
+    
+</head>
+<body>
+    <div class="container">
+        <ul id="id-ul-menu">
+            <li class="active">Home</li>
+            <li>Search</li>
+            <li>Favorite</li>
+            <li>Playlists</li>
+            <li>Charts</li>
+        </ul>
+        <div id="id-audio-container">
+            <!--显示专辑图片-->
+            <img id="id-img-cover" src="album/夏花.jpg" alt="cover">
+            <!--显示歌曲信息-->
+            <div class="songInfo">
+                <span class="songName">夏花</span><br>
+                <span class="singer">juju</span>
+            </div>
+            <!--播放器组件-->
+            <audio id=id-audio-player src="music/01.mp3"></audio>
+            <!--播放器按钮-->
+            <div class="playButtonsContainer">
+                <img class="playButtons" id="id-loopButton" src="images/iconfinder_mix.png" alt="Loop">
+                <img class="playButtons" id="id-previousButton" src="images/iconfinder_left.png" alt="Previous Song">
+                <img class="playButtons playOrPause" id="id-audio-play" src="images/iconfinder_play.png" alt="Play">
+                <img class="playButtons playOrPause hide" id="id-audio-pause" src="images/iconfinder_pause.png" alt="Pause">
+                <img class="playButtons" id="id-nextButton" src="images/iconfinder_right.png" alt="Next Song">
+                <img class="playButtons" id="id-volumeButton" src="images/iconfinder_volume.png" alt="Volume">
+            </div>
+            <!--进度条-->
+            <span id="id-audio-currentTime"></span>
+            <span id="id-audio-duration"></span>
+            <span id="id-audio-progressBar"></span>
+        </div>
+        <!--TODO 添加歌曲列表
+        <div id="id-div-songList">
+            <div id="myFavorites">
+                <p>My Favorites</p>
+                <ol>
+                    <li class="song" data-path="01.mp3">夏花</li>
+                    <li class="song" data-path="02.mp3">Destiny</li>
+                    <li class="song" data-path="03.mp3">Love Song</li>
+                    <li class="song" data-path="04.mp3">未知</li>
+                </ol>
+            </div>
+        </div>
+    -->
+        <script src="hu.js"></script>
+        <script src="music player.js"></script>
+        
+    </div>
+    
+</body>
+</html>
