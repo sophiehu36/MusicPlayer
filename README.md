@@ -17,6 +17,8 @@
  <li>音量调节</li>
  <li>其他页面</li>
 </ul>
-<p>-效果图-</p>
-![demo display](images/display.JPG)
+<p>-效果图1-</p>
+![demo display](images/display1.JPG)
+<p>-效果图2-</p>
+![demo display](images/display2.JPG)
 
