@@ -58,8 +58,7 @@ const bindEventPreviousNext = function() {
             e('#id-audio-play').classList.add('hide')
         }
         bindEventCanplay()
-        showSongInfo()
-        
+        showSongInfo()    
     })
 }
 //播放暂停按钮事件
@@ -205,7 +204,6 @@ const insertSongList = function(dataList) {
         var t = songListTemplate(dataList[i])
         appendHtml(songList, t)
     }
-    return
 }
 const songListTemplate = function(data) {
     var t = `
