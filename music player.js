@@ -45,18 +45,31 @@ const bindEventPreviousNext = function() {
         //根据点击的按钮是上一首/下一首来求出接下来播放的歌曲的下标
         //将播放器src替换为新的下标对应曲名
         //点击上一首/下一首都会触发播放按钮
-        if(target.id == "id-previousButton") {
-            var nextIndex = (index - 1 + array.length) % array.length
-            a.src = `music/${array[nextIndex]}`
-            clearAll('.playOrPause', 'hide')
-            e('#id-audio-play').classList.add('hide')
-        }
-        if(target.id == "id-nextButton") {
-            var nextIndex = (index + 1) % array.length
-            a.src = `music/${array[nextIndex]}`
-            clearAll('.playOrPause', 'hide')
-            e('#id-audio-play').classList.add('hide')
-        }
+        //要排除掉随机循环的情况
+        const loopButton = e('#id-loopButton')
+        const src = loopButton.getAttribute('src').split('/')[1]
+        if(src == 'iconfinder_mix.png') {
+            //随机播放时，无论点击前/后按钮，都会随机选歌
+            if(target.id == "id-nextButton" || target.id == "id-previousButton" ) {
+                a.src = `music/${choice(songList())}`
+                clearAll('.playOrPause', 'hide')
+                e('#id-audio-play').classList.add('hide')
+            }
+        } else {
+            if(target.id == "id-previousButton") {
+                var nextIndex = (index - 1 + array.length) % array.length
+                a.src = `music/${array[nextIndex]}`
+                clearAll('.playOrPause', 'hide')
+                e('#id-audio-play').classList.add('hide')
+            }
+            if(target.id == "id-nextButton") {
+                var nextIndex = (index + 1) % array.length
+                a.src = `music/${array[nextIndex]}`
+                clearAll('.playOrPause', 'hide')
+                e('#id-audio-play').classList.add('hide')
+            }
+        } 
+        log('currentSrc', a.src.slice(-6))
         bindEventCanplay()
         showSongInfo()    
     })
@@ -109,15 +122,52 @@ const bindEventCanplay = function() {
         a.play()
     })
 }
-//单曲循环播放
-const bindEventCycle = function() {
-    bindEvent(a, 'ended', function(){
-        a.currentTime = 0
-        a.play()
+
+//点击按钮切换循环模式
+const bindEventLoopImage = function() {
+    //选中循环按钮
+    const loopButton = e('#id-loopButton')
+    //绑定点击事件
+    bindEvent(loopButton, 'click', function(event){
+        const target = event.target
+        const src = target.getAttribute('src').split('/')[1]
+        //判断当前循环图片是什么
+        //按照随机、列表循环、单曲循环的顺序切换图片
+        if(src == 'iconfinder_mix.png') {
+            target.setAttribute('src', 'images/iconfinder_refresh.png')
+        } else if(src == 'iconfinder_refresh.png') {
+            target.setAttribute('src', 'images/iconfinder_iretation.png')
+        } else if('iconfinder_iretation.png') {
+            target.setAttribute('src', 'images/iconfinder_mix.png')
+        }
     })
 }
-//列表循环播放
-const bindEventNext = function() {
+
+//单曲循环播放
+const bindEventLoopAction = function() {
+    const loopButton = e('#id-loopButton')
+    const src = loopButton.getAttribute('src').split('/')[1]
+    //随机循环
+    if(src == 'iconfinder_mix.png') {
+        bindEventLoopRandom()
+    //列表循环
+    } else if (src == 'iconfinder_refresh.png') {
+        bindEventLoopList()
+    //单曲循环
+    } else if (src == 'iconfinder_iretation.png') {
+        bindEventLoopSingle()
+    }
+}
+//随机循环
+const bindEventLoopRandom = function() {
+    bindEvent(a, 'ended', function(){
+        a.src = `music/${choice(songList())}`
+        bindEventCanplay()
+        showSongInfo()
+    })
+}
+//列表循环
+const bindEventLoopList = function() {
     bindEvent(a, 'ended', function() {
         let array = songList()
         let index = indexOfSong(array)
@@ -128,14 +178,15 @@ const bindEventNext = function() {
         showSongInfo()
     })
 }
-//随机播放
-const bindEventRandom = function() {
+//单曲循环
+const bindEventLoopSingle = function() {
     bindEvent(a, 'ended', function(){
-        a.src = `music/${choice(songList())}`
-        bindEventCanplay()
-        showSongInfo()
+        a.currentTime = 0
+        a.play()
     })
 }
+
+
 //获取当前播放进度
 const updateCurrentTime = function() {
     let currentTime = `${Math.floor(a.currentTime / 60)}:${Math.floor(a.currentTime % 60)}`
@@ -160,7 +211,6 @@ const songList = function() {
 const indexOfSong = function(array) {
     let element = a.getAttribute('src').split('/')[1]
     let index = indexOfElement(element, array)
-    log('element',element, 'index', index)
     return index
 }
 //获取随机选择的歌曲
@@ -235,10 +285,11 @@ const showSongInfo = function() {
 const _main = function() {
     bindTimeDisplay()
     showAudioTime()
-    bindEventNext()
     bindEventPreviousNext()
     bindEventPlayOrPause ()
     bindEventMenus()
+    bindEventLoopImage()
+    bindEventLoopAction()
 }
 
 _main()
