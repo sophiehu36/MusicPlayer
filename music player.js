@@ -230,6 +230,7 @@ const songs = [
     songName: '夏花',
     singer: "juju",
     path: '01.mp3'
+    //待插入歌曲图片
     },
     {
     songName: 'Destiny',
