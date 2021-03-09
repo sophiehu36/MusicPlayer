@@ -227,7 +227,7 @@ const choice = function(songList) {
 //1.用一个数组保存当前歌曲的信息
 const songs = [
     {
-    songName: '夏花',
+    songName: 'ナツノハナ',
     singer: "juju",
     path: '01.mp3'
     //待插入歌曲图片
