@@ -1,7 +1,7 @@
 body {
     background-color:#dbf5fd;
     color:#2c2c2c;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: "Spoqa Han Sans";
 }
 .container {
     position: fixed;
@@ -12,8 +12,7 @@ body {
     background-color: rgba(255, 255, 255, 1);
     border-radius: 45px;
     transform: translateY(1%);
-    box-shadow:0 0 10px #dbf5fd ;
-    border: 1px solid white;
+    box-shadow:0 0 10px #71d2d24a ;
 
 }
 #id-ul-menu {
@@ -114,4 +113,8 @@ span#id-audio-progressBar {
 }
 .song:hover {
     color: white;
+}
+ol#id-songList {
+    list-style: decimal-leading-zero;
+    width: 15%;
 }
