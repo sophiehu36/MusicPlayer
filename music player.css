@@ -36,13 +36,11 @@ body {
     cursor: pointer;
 }
 #id-ul-menu li:hover{
-    border: 1px solid #dbf5fd;
-    background-color: #dbf5fd;
-    border-radius: 30px;
+    border-bottom: 5px solid skyblue;
+    opacity: 100%;
 }    
 #id-ul-menu li.active{
     opacity: 100%;
-
 }
 .divContainer {
     padding-top: 20px;
@@ -112,9 +110,9 @@ span#id-audio-progressingBar {
 }
 #id-favorite-container {
     position: absolute;
-    top: 0;
-    height: 50%;
-    margin-top: 10%;
+    top: 5px;
+    height: 49%;
+    margin-top: 11%;
     right: 0;
     margin-right: 0px;
     padding: 10px 0px 0px 10px;
