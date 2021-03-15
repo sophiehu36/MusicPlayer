@@ -1,9 +1,9 @@
 const a = e('#id-audio-player')
 
 //给菜单栏添加事件
-const bindEventMenus = function() {
+const bindEventMenus = () => {
     var menu = e('#id-ul-menu')
-    bindEvent(menu, 'click', function(event) {
+    bindEvent(menu, 'click', event => {
         var target = event.target
         if(target.classList.contains('menuButtons')) {
             //根据点击的按钮获取page
@@ -36,8 +36,8 @@ const bindEventMenus = function() {
     })
 }
 //切换上一首/下一首歌曲事件
-const bindEventPreviousNext = function() {
-    bindEvent(e('.playButtonsContainer'), 'click', function(event) {
+const bindEventPreviousNext = () => {
+    bindEvent(e('.playButtonsContainer'), 'click', event => {
         var target = event.target
         var array = songList(songs)
         //获取当前歌曲在歌曲列表中的下标
@@ -75,8 +75,8 @@ const bindEventPreviousNext = function() {
     })
 }
 //播放暂停按钮事件
-const bindEventPlayOrPause = function() {
-    bindEvent(e('.playButtonsContainer'), 'click', function(event){
+const bindEventPlayOrPause = () => {
+    bindEvent(e('.playButtonsContainer'), 'click', event => {
         var target = event.target
         var playButton = e('#id-audio-play')
         var pauseButton = e('#id-audio-pause')
@@ -95,8 +95,8 @@ const bindEventPlayOrPause = function() {
     })
 }
 //时间显示
-const bindTimeDisplay = function() {
-    a.addEventListener('canplaythrough', function(){
+const bindTimeDisplay = () => {
+    a.addEventListener('canplaythrough', () => {
         let total = `${Math.floor(a.duration / 60)}:${Math.floor(a.duration % 60)}`
         let audioDuration = e('#id-audio-duration')
         audioDuration.innerHTML = total
@@ -104,8 +104,8 @@ const bindTimeDisplay = function() {
     })   
 } 
 //点击歌名列表切换歌曲
-const bindSongChange = function() {
-    bindAll('.song', 'click', function(event) {
+const bindSongChange = () => {
+    bindAll('.song', 'click', event => {
         let target = event.target
         log('songName', target)
         let newSrc = `music/${target.dataset.path}`
@@ -119,18 +119,18 @@ const bindSongChange = function() {
     })
 }
 
-const bindEventCanplay = function() {
-    a.addEventListener('canplay', function () {
+const bindEventCanplay = () => {
+    a.addEventListener('canplay', () => {
         a.play()
     })
 }
 
 //点击按钮切换循环模式
-const bindEventLoopImage = function() {
+const bindEventLoopImage = () => {
     //选中循环按钮
     const loopButton = e('#id-loopButton')
     //绑定点击事件
-    bindEvent(loopButton, 'click', function(event){
+    bindEvent(loopButton, 'click', event => {
         const target = event.target
         const src = target.getAttribute('src').split('/')[1]
         //判断当前循环图片是什么
@@ -146,7 +146,7 @@ const bindEventLoopImage = function() {
 }
 
 //单曲循环播放
-const bindEventLoopAction = function() {
+const bindEventLoopAction = () => {
     const loopButton = e('#id-loopButton')
     const src = loopButton.getAttribute('src').split('/')[1]
     //随机循环
@@ -161,16 +161,16 @@ const bindEventLoopAction = function() {
     }
 }
 //随机循环
-const bindEventLoopRandom = function() {
-    bindEvent(a, 'ended', function(){
+const bindEventLoopRandom = () => {
+    bindEvent(a, 'ended',  () => {
         a.src = `music/${choice(songList())}`
         bindEventCanplay()
         showSongInfo()
     })
 }
 //列表循环
-const bindEventLoopList = function() {
-    bindEvent(a, 'ended', function() {
+const bindEventLoopList = () => {
+    bindEvent(a, 'ended', () => {
         let array = songList()
         let index = indexOfSong(array)
         let nextIndex = (index + 1) % array.length
@@ -181,8 +181,8 @@ const bindEventLoopList = function() {
     })
 }
 //单曲循环
-const bindEventLoopSingle = function() {
-    bindEvent(a, 'ended', function(){
+const bindEventLoopSingle = () => {
+    bindEvent(a, 'ended', () => {
         a.currentTime = 0
         a.play()
     })
@@ -190,17 +190,17 @@ const bindEventLoopSingle = function() {
 
 
 //获取当前播放进度
-const updateCurrentTime = function() {
+const updateCurrentTime = () => {
     let currentTime = `${Math.floor(a.currentTime / 60)}:${Math.floor(a.currentTime % 60)}`
     let audioCurrentTime = e('#id-audio-currentTime')
     audioCurrentTime.innerHTML = currentTime
 }
 //刷新播放时间
-const showAudioTime = function() {
+const showAudioTime = () => {
     setInterval(updateCurrentTime, 1000);
 }
 //获取歌曲列表
-const songList = function() {
+const songList = () => {
     var array = []
     for(let i = 0; i < songs.length; i++) {
         let s = songs[i].path
@@ -210,13 +210,13 @@ const songList = function() {
     return array
 }
 //获取当前歌曲对应下标
-const indexOfSong = function(array) {
+const indexOfSong = array => {
     let element = a.getAttribute('src').split('/')[1]
     let index = indexOfElement(element, array)
     return index
 }
 //获取随机选择的歌曲
-const choice = function(songList) {
+const choice = songList => {
     const length = songList.length
     // 1. 得到  0 - 1 之间的小数 a
     // 2. 把 a 转成 0 - array.length 之间的小数
@@ -251,21 +251,21 @@ const songs = [
     }
 ]
 //2.把歌曲列表插入到页面中
-const insertSongList = function(dataList) {
+const insertSongList = dataList => {
     var songList = e('#id-songList')
     for(var i = 0; i < dataList.length; i++) {
         var t = songListTemplate(dataList[i])
         appendHtml(songList, t)
     }
 }
-const songListTemplate = function(data) {
+const songListTemplate = data => {
     var t = `
     <li class="song" data-path=${data.path} data-singer=${data.singer}>${data.songName}</li>
     `
     return t
 }
 //3.获取当前歌曲的信息显示到页面中
-const showSongInfo = function() {
+const showSongInfo = () => {
     //获取当前播放歌曲的src
     let currentSong = a.getAttribute('src').split('/')[1]
     let name = e('.songName')
@@ -286,18 +286,18 @@ const showSongInfo = function() {
 }
 
 //进度条宽度随歌曲播放时间变化
-const progressingBar = function() {
+const progressingBar = () => {
     const progress = `${((a.currentTime/a.duration)*100)}`.slice(0,4)
     const bar = e('#id-audio-progressingBar')
     const w = progress + '%'
     bar.style.width = w
 }
 
-const showProgress = function() {
+const showProgress = () => {
     setInterval(progressingBar, 100)
 }
 
-const _main = function() {
+const _main = () => {
     bindTimeDisplay()
     showAudioTime()
     bindEventPreviousNext()
