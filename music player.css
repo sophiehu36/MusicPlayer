@@ -17,9 +17,9 @@ body {
     height: 600px;
     margin-left: 14%;
     margin-right: 14%;
-    background-color: rgba(255, 255, 255, 1);
+    background-color: rgba(255, 255, 255, 0.9);
     border-radius: 45px;
-    box-shadow:6px 6px 10px #aacfde94 ;
+    box-shadow:6px 6px 10px #aacfde94;
 
 }
 #id-ul-menu {
@@ -113,13 +113,14 @@ span#id-audio-progressingBar {
 #id-favorite-container {
     position: absolute;
     top: 0;
-    border: 1px solid #dbf5fd;
     height: 50%;
-    margin-left: 4%;
     margin-top: 10%;
+    right: 0;
+    margin-right: 0px;
     padding: 10px 0px 0px 10px;
     background-color: skyblue;
     border-radius: 45px 0px 0px 45px;
+
 }
 .song {
     padding: 5px;
