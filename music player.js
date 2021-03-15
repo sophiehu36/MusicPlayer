@@ -84,11 +84,13 @@ const bindEventPlayOrPause = function() {
             clearAll('.playOrPause', 'hide')
             playButton.classList.add('hide')
             a.play() 
+            showProgress()
         }
         if (target == pauseButton) {
             clearAll('.playOrPause', 'hide')
             pauseButton.classList.add('hide')
             a.pause()
+            clearInterval(showProgress)
         }
     })
 }
@@ -283,6 +285,18 @@ const showSongInfo = function() {
     //log('songName', songName, 'singer', singer)
 }
 
+//进度条宽度随歌曲播放时间变化
+const progressingBar = function() {
+    const progress = `${((a.currentTime/a.duration)*100)}`.slice(0,4)
+    const bar = e('#id-audio-progressingBar')
+    const w = progress + '%'
+    bar.style.width = w
+}
+
+const showProgress = function() {
+    setInterval(progressingBar, 100)
+}
+
 const _main = function() {
     bindTimeDisplay()
     showAudioTime()
@@ -291,6 +305,7 @@ const _main = function() {
     bindEventMenus()
     bindEventLoopImage()
     bindEventLoopAction()
+    
 }
 
 _main()
