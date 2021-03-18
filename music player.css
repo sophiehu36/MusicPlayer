@@ -5,7 +5,7 @@ html, body {
     padding: 0;
 }
 body {
-    background-color:#dbf5fd;
+    background:#dbf5fd;
     color:#2c2c2c;
     font-family: "Spoqa Han Sans";
     display: flex;
