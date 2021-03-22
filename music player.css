@@ -122,9 +122,6 @@ span#id-audio-progressingBar {
 
 
 }
-div#myFavorites {
-    padding-left: 10px;
-}
 .song {
     padding: 5px;
     cursor: pointer;
@@ -133,6 +130,7 @@ div#myFavorites {
     color: white;
 }
 ol#id-songList {
+    margin-left: 10px;
     list-style: decimal-leading-zero;
     width: 15%;
 }
