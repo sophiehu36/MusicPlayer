@@ -58,7 +58,7 @@ body {
     text-align: center;
 }
 #id-audio-container {
-    margin-top: 42%;
+    margin-top: 44%;
 }
 
 .divContainer audio, button, span {
@@ -78,7 +78,7 @@ body {
 #id-img-cover {
     display: block;
     text-align: center;
-    margin: 0px auto 10px auto;
+    margin: 27px auto 10px auto;
     width: 200px;
     height: 200px;
     border-radius: 13px;
@@ -119,8 +119,6 @@ span#id-audio-progressingBar {
     padding: 10px 0px 0px 10px;
     background-color: skyblue;
     border-radius: 45px 0px 0px 45px;
-
-
 }
 .song {
     padding: 5px;
@@ -130,7 +128,8 @@ span#id-audio-progressingBar {
     color: white;
 }
 ol#id-songList {
-    margin-left: 10px;
+    margin-top: 10px;
+    margin-left: 40px;
     list-style: decimal-leading-zero;
     width: 15%;
 }
