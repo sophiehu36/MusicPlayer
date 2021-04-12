@@ -4,6 +4,7 @@ const a = e('#id-audio-player')
 //给菜单栏添加事件
 const bindEventMenus = () => {
     const menu = e('#id-ul-menu')
+    //事件委托：点击事件冒泡到menu container上
     bindEvent(menu, 'click', event => {
         const target = event.target
         if(target.classList.contains('menuButtons')) {
